@@ -26,15 +26,15 @@ void insertNodeFront(Node **head, int data) {
     Node *newNode = new Node(data);
     newNode->next = *head;
 }
-// void insertNodeBack(Node **head, int data) {
-//     while(head != NULL) {
-//         head = head->next;
-//     }
-//     Node *newNode = new Node(data);
-//     newNode->value = data;
-//     newNode->next = NULL;
-//     head->next = newNode;
-// }
+void insertNodeBack(Node **head, int data) {
+    while(head != NULL) {
+        head = *head->next;
+    }
+    Node *newNode = new Node(data);
+    newNode->value = data;
+    newNode->next = NULL;
+    head->next = newNode;
+}
 int main() {
     Node *head = new Node(0);
     head->next = new Node(2);
