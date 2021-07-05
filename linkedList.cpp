@@ -16,24 +16,44 @@ struct Node{
         next = node;
     }
 };
-void printList(Node *node) {
-    while(node != NULL) {
-        cout << node->value << " ";
-        node = node->next;
+void printList(Node *head) {
+    while(head != NULL) {
+        cout << head->value << " ";
+        head = head->next;
     }
 }
 void insertNodeFront(Node **head, int data) {
     Node *newNode = new Node(data);
     newNode->next = *head;
+    *head = newNode;
 }
-void insertNodeBack(Node **head, int data) {
-    while(head != NULL) {
-        head = *head->next;
+void insertNodeBack(Node *head, int data) {
+    while(head->next != NULL) {
+        head = head->next;
     }
     Node *newNode = new Node(data);
-    newNode->value = data;
-    newNode->next = NULL;
     head->next = newNode;
+}
+// generalize
+void insertAtKIndex(Node *head, int data, int k) {
+    while(head->next != NULL && k) {
+        head = head->next;
+        k--;
+    }
+    Node *newNode = new Node(data);
+    newNode->next = head->next;
+    head->next = newNode;
+}
+void deleteNodeAtKIndex(Node *head, int k) {
+    k -= 2;
+    while(head->next != NULL && k) {
+        head = head->next;
+        k--;
+    }
+    // now head is the node that is previous to the delete node
+    Node *tmp = head->next;
+    delete(tmp);
+    head->next = head->next->next;
 }
 int main() {
     Node *head = new Node(0);
@@ -41,6 +61,9 @@ int main() {
     insertNodeFront(&head, 1);
     insertNodeFront(&head, 2);
     insertNodeFront(&head, 3);
+    insertNodeBack(head, 4);
+    insertNodeBack(head, 5);
+    insertAtKIndex(head, 10, 2);
     printList(head);
     return 0;
 }
