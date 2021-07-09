@@ -38,15 +38,13 @@ void merge(int arr[], int helper[], int l, int m, int r)
 }
 void mergeSort(int arr[], int helper[], int l, int r)
 {
-    int m = l + (r - l) / 2; // thay vì dùng (l + r) / 2 để tránh tràn số
-    mergeSort(arr, helper, l, m);
-    mergeSort(arr, helper, m + 1, r);
-    merge(arr, helper, l, m, r);
-}
-void mergesort(int arr[], int n)
-{
-    int helper[500];
-    mergeSort(arr, helper, 0, n - 1);
+    if (l < r)
+    {
+        int m = l + (r - l) / 2; // thay vì dùng (l + r) / 2 để tránh tràn số
+        mergeSort(arr, helper, l, m);
+        mergeSort(arr, helper, m + 1, r);
+        merge(arr, helper, l, m, r);
+    }
 }
 int main()
 {
@@ -57,7 +55,8 @@ int main()
     {
         cin >> arr[i];
     }
-    mergesort(arr, n);
+    int helper[500];
+    mergeSort(arr, helper, 0, n - 1);
     for (int i = 0; i < n; i++)
     {
         cout << arr[i] << " ";
